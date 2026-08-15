@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Editor</class>
+ <widget class="QMainWindow" name="Editor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Édition</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="actionNouveau"/>
+    <addaction name="action_Ouvrir"/>
+    <addaction name="actionEnregistrer"/>
+    <addaction name="actionEnregistrer_sous"/>
+    <addaction name="actionEnregistrer_tout"/>
+    <addaction name="separator"/>
+    <addaction name="actionNouvel_onglet"/>
+    <addaction name="actionNouvelle_fen_tre"/>
+    <addaction name="action_cran_de_bienvenue"/>
+    <addaction name="separator"/>
+    <addaction name="actionParam_tres"/>
+    <addaction name="separator"/>
+    <addaction name="actionFermer_onglet"/>
+    <addaction name="actionFermer_fen_tre"/>
+    <addaction name="actionQuitter"/>
+   </widget>
+   <widget class="QMenu" name="menu_diter">
+    <property name="title">
+     <string>Éditer</string>
+    </property>
+    <addaction name="actionAnnuler"/>
+    <addaction name="actionRestorer"/>
+    <addaction name="actionRedraw_all"/>
+   </widget>
+   <widget class="QMenu" name="menuAffichage">
+    <property name="title">
+     <string>Affichage</string>
+    </property>
+    <widget class="QMenu" name="menuBarres_d_outils">
+     <property name="title">
+      <string>Barres d'outils</string>
+     </property>
+     <addaction name="actionG_n_ral"/>
+     <addaction name="action_dition"/>
+    </widget>
+    <addaction name="menuBarres_d_outils"/>
+    <addaction name="actionGet_Stroke_Nbr"/>
+   </widget>
+   <widget class="QMenu" name="menuAide">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuDessin">
+    <property name="title">
+     <string>Dessin</string>
+    </property>
+    <widget class="QMenu" name="menuCouleurs">
+     <property name="title">
+      <string>Couleurs</string>
+     </property>
+     <addaction name="actionRouge"/>
+     <addaction name="actionVert"/>
+     <addaction name="actionBleu"/>
+     <addaction name="actionNoir"/>
+     <addaction name="actionOrange"/>
+     <addaction name="actionJaune"/>
+     <addaction name="actionViolet"/>
+     <addaction name="actionBlanc"/>
+     <addaction name="actionBleu_clair"/>
+     <addaction name="actionGris"/>
+     <addaction name="separator"/>
+     <addaction name="actionCouleur_perso_n_1"/>
+     <addaction name="actionChanger_couleur_perso_n_1"/>
+     <addaction name="separator"/>
+     <addaction name="actionCouleur_perso_n_2"/>
+     <addaction name="actionChanger_couleur_perso_n_2"/>
+    </widget>
+    <addaction name="actionStylo"/>
+    <addaction name="menuCouleurs"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menu_diter"/>
+   <addaction name="menuAffichage"/>
+   <addaction name="menuDessin"/>
+   <addaction name="menuAide"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>Général</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNouveau"/>
+   <addaction name="action_Ouvrir"/>
+   <addaction name="actionEnregistrer"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAnnuler"/>
+   <addaction name="actionRestorer"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_3">
+   <property name="windowTitle">
+    <string>toolBar_3</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionRouge"/>
+   <addaction name="actionVert"/>
+   <addaction name="actionBleu"/>
+   <addaction name="actionNoir"/>
+   <addaction name="actionOrange"/>
+   <addaction name="actionJaune"/>
+   <addaction name="actionViolet"/>
+   <addaction name="actionBlanc"/>
+   <addaction name="actionBleu_clair"/>
+   <addaction name="actionGris"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_4">
+   <property name="windowTitle">
+    <string>toolBar_4</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="actionAnnuler">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::EditUndo"/>
+   </property>
+   <property name="text">
+    <string>Annuler</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRestorer">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::EditRedo"/>
+   </property>
+   <property name="text">
+    <string>Restorer</string>
+   </property>
+  </action>
+  <action name="actionNouveau">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::DocumentNew"/>
+   </property>
+   <property name="text">
+    <string>Nouveau</string>
+   </property>
+  </action>
+  <action name="action_Ouvrir">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::DocumentOpen"/>
+   </property>
+   <property name="text">
+    <string>Ouvrir</string>
+   </property>
+  </action>
+  <action name="actionEnregistrer">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::DocumentSave"/>
+   </property>
+   <property name="text">
+    <string>Enregistrer</string>
+   </property>
+  </action>
+  <action name="actionEnregistrer_sous">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::DocumentSaveAs"/>
+   </property>
+   <property name="text">
+    <string>Enregistrer sous</string>
+   </property>
+  </action>
+  <action name="action_cran_de_bienvenue">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::GoHome"/>
+   </property>
+   <property name="text">
+    <string>Écran de bienvenue</string>
+   </property>
+  </action>
+  <action name="actionG_n_ral">
+   <property name="text">
+    <string>Fichier</string>
+   </property>
+  </action>
+  <action name="action_dition">
+   <property name="text">
+    <string>Édition</string>
+   </property>
+  </action>
+  <action name="actionParam_tres">
+   <property name="icon">
+    <iconset theme="preferences-system"/>
+   </property>
+   <property name="text">
+    <string>Paramètres</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::SystemShutdown"/>
+   </property>
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionFermer_onglet">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::WindowClose"/>
+   </property>
+   <property name="text">
+    <string>Fermer onglet</string>
+   </property>
+  </action>
+  <action name="actionNouvel_onglet">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::ListAdd"/>
+   </property>
+   <property name="text">
+    <string>Nouvel onglet</string>
+   </property>
+  </action>
+  <action name="actionNouvelle_fen_tre">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::WindowNew"/>
+   </property>
+   <property name="text">
+    <string>Nouvelle fenêtre</string>
+   </property>
+  </action>
+  <action name="actionFermer_fen_tre">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::ApplicationExit"/>
+   </property>
+   <property name="text">
+    <string>Fermer fenêtre</string>
+   </property>
+  </action>
+  <action name="actionEnregistrer_tout">
+   <property name="text">
+    <string>Enregistrer tout</string>
+   </property>
+  </action>
+  <action name="actionGet_Stroke_Nbr">
+   <property name="text">
+    <string>Get Stroke Nbr</string>
+   </property>
+  </action>
+  <action name="actionRedraw_all">
+   <property name="text">
+    <string>Redraw all</string>
+   </property>
+  </action>
+  <action name="actionStylo">
+   <property name="text">
+    <string>Stylo</string>
+   </property>
+  </action>
+  <action name="actionRouge">
+   <property name="text">
+    <string>Rouge</string>
+   </property>
+  </action>
+  <action name="actionVert">
+   <property name="text">
+    <string>Vert</string>
+   </property>
+  </action>
+  <action name="actionBleu">
+   <property name="text">
+    <string>Bleu</string>
+   </property>
+  </action>
+  <action name="actionNoir">
+   <property name="text">
+    <string>Noir</string>
+   </property>
+  </action>
+  <action name="actionOrange">
+   <property name="text">
+    <string>Orange</string>
+   </property>
+  </action>
+  <action name="actionJaune">
+   <property name="text">
+    <string>Jaune</string>
+   </property>
+  </action>
+  <action name="actionViolet">
+   <property name="text">
+    <string>Violet</string>
+   </property>
+  </action>
+  <action name="actionBlanc">
+   <property name="text">
+    <string>Blanc</string>
+   </property>
+  </action>
+  <action name="actionBleu_clair">
+   <property name="text">
+    <string>Bleu clair</string>
+   </property>
+  </action>
+  <action name="actionGris">
+   <property name="text">
+    <string>Gris</string>
+   </property>
+  </action>
+  <action name="actionCouleur_perso_n_1">
+   <property name="text">
+    <string>Couleur perso. n°1</string>
+   </property>
+  </action>
+  <action name="actionChanger_couleur_perso_n_1">
+   <property name="text">
+    <string>Changer couleur perso. n°1</string>
+   </property>
+  </action>
+  <action name="actionCouleur_perso_n_2">
+   <property name="text">
+    <string>Couleur perso. n°2</string>
+   </property>
+  </action>
+  <action name="actionChanger_couleur_perso_n_2">
+   <property name="text">
+    <string>Changer couleur perso. n°2</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
