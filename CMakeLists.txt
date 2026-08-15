@@ -28,6 +28,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ressources.qrc
         drawingwidget.h drawingwidget.cpp
         canvas.h canvas.cpp
+        LICENSE
+        README.md
 
 
 
