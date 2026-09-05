@@ -152,6 +152,7 @@
    <addaction name="actionBlanc"/>
    <addaction name="actionBleu_clair"/>
    <addaction name="actionGris"/>
+   <addaction name="actionPerso"/>
   </widget>
   <widget class="QToolBar" name="toolBar_4">
    <property name="windowTitle">
@@ -369,6 +370,14 @@
   <action name="actionChanger_couleur_perso_n_2">
    <property name="text">
     <string>Changer couleur perso. n°2</string>
+   </property>
+  </action>
+  <action name="actionPerso">
+   <property name="text">
+    <string>Perso.</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
    </property>
   </action>
  </widget>

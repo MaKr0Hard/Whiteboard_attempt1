@@ -8,6 +8,7 @@
 #include "drawingwidget.h"
 #include <QToolBar>
 #include <QSlider>
+#include <QColorDialog>
 
 QTabWidget *tabwidget;
 std::string snbr;
@@ -257,3 +258,17 @@ void Editor::on_slider_pressed() {
 void Editor::on_slider_moved(int pos){
     dw->setPenSize(pos);
 }
+
+QColorDialog *col_dialog;
+
+void Editor::on_custom_color_selected(const QColor &color) {
+    dw->setPenColour(color);
+    //delete col_dialog; //TODO: check if causes memleak
+}
+
+void Editor::on_actionPerso_triggered() {
+    col_dialog = new QColorDialog();
+    connect(col_dialog, &QColorDialog::colorSelected, this, &Editor::on_custom_color_selected);
+    col_dialog->show();
+}
+

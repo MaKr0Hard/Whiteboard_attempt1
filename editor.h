@@ -74,6 +74,9 @@ private slots:
 
     void on_slider_pressed();
 
+    void on_actionPerso_triggered();
+
+    void on_custom_color_selected(const QColor &color);
 private:
     Ui::Editor *ui;
     void setSomeBackForthBtns (bool btn1, bool btn2);
