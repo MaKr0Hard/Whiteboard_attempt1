@@ -9,6 +9,11 @@
 #include <QToolBar>
 #include <QSlider>
 #include <QColorDialog>
+#include <QAction>
+#include <QPushButton>
+
+
+
 
 QTabWidget *tabwidget;
 std::string snbr;
@@ -25,6 +30,15 @@ QIcon makeAnIconFromJustAColour(QColor colour) {
     return icon;
 }
 
+void Editor::change_colour_from_action() {
+    QAction* action = qobject_cast<QAction*>(sender());
+
+    if (action) {
+        QColor colour = QColor(action->data().toLongLong()); //F*ck just use an addwidget on the toolbar
+
+        on_custom_color_selected(colour);
+    }
+}
 
 Editor::Editor(QWidget *parent)
     : QMainWindow(parent)
@@ -74,6 +88,20 @@ void Editor::newfile() {
     ui->actionViolet->setIcon(makeAnIconFromJustAColour(violet));
     ui->actionBleu_clair->setIcon(makeAnIconFromJustAColour(Qt::cyan));
     ui->actionGris->setIcon(makeAnIconFromJustAColour(Qt::gray));
+
+    QList <QAction*> custom_colrs;
+    for (int i = 0; i < 10; i++) {
+        QAction *action = new QAction();
+        QColor *colour = new QColor();
+        action->setData(colour->rgb());
+        action->setText(QString::fromStdString(std::to_string(i)));
+        connect(action, &QAction::triggered, this, &Editor::change_colour_from_action);
+        custom_colrs.append(action);
+    }
+
+    ui->menuCouleurs->addActions(custom_colrs);
+    QMenu *menu_change_custom_colrs = new QMenu("Changer les couleurs perso.");
+    ui->menuCouleurs->addMenu(menu_change_custom_colrs);
 
     QScrollArea *sa = new QScrollArea();
     QWidget *widget = new QWidget();

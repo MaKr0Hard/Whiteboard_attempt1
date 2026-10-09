@@ -89,11 +89,6 @@
      <addaction name="actionBleu_clair"/>
      <addaction name="actionGris"/>
      <addaction name="separator"/>
-     <addaction name="actionCouleur_perso_n_1"/>
-     <addaction name="actionChanger_couleur_perso_n_1"/>
-     <addaction name="separator"/>
-     <addaction name="actionCouleur_perso_n_2"/>
-     <addaction name="actionChanger_couleur_perso_n_2"/>
     </widget>
     <addaction name="actionStylo"/>
     <addaction name="menuCouleurs"/>
@@ -350,26 +345,6 @@
   <action name="actionGris">
    <property name="text">
     <string>Gris</string>
-   </property>
-  </action>
-  <action name="actionCouleur_perso_n_1">
-   <property name="text">
-    <string>Couleur perso. n°1</string>
-   </property>
-  </action>
-  <action name="actionChanger_couleur_perso_n_1">
-   <property name="text">
-    <string>Changer couleur perso. n°1</string>
-   </property>
-  </action>
-  <action name="actionCouleur_perso_n_2">
-   <property name="text">
-    <string>Couleur perso. n°2</string>
-   </property>
-  </action>
-  <action name="actionChanger_couleur_perso_n_2">
-   <property name="text">
-    <string>Changer couleur perso. n°2</string>
    </property>
   </action>
   <action name="actionPerso">

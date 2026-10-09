@@ -24,6 +24,7 @@ public:
     std::string snbr;
     std::string pnbr;
     DrawingWidget *dw;
+    void change_colour_from_action();
     //void refresh_btns();
 
 private slots:
