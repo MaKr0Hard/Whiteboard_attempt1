@@ -26,6 +26,9 @@ public:
     DrawingWidget *dw;
     void change_colour_from_action();
     //void refresh_btns();
+    void init_set_colours();
+    void change_colour_from_custom_colour_action();
+
 
 private slots:
     void on_action_cran_de_bienvenue_triggered();

@@ -11,9 +11,7 @@
 #include <QColorDialog>
 #include <QAction>
 #include <QPushButton>
-
-
-
+#include "custom_colour_action.h"
 
 QTabWidget *tabwidget;
 std::string snbr;
@@ -30,12 +28,32 @@ QIcon makeAnIconFromJustAColour(QColor colour) {
     return icon;
 }
 
+void Editor::init_set_colours() {
+    ui->actionRouge->setIcon(makeAnIconFromJustAColour(Qt::red));
+    ui->actionVert->setIcon(makeAnIconFromJustAColour(Qt::green));
+    ui->actionBleu->setIcon(makeAnIconFromJustAColour(Qt::blue));
+    ui->actionNoir->setIcon(makeAnIconFromJustAColour(Qt::black));
+    ui->actionOrange->setIcon(makeAnIconFromJustAColour(orange));
+    ui->actionJaune->setIcon(makeAnIconFromJustAColour(Qt::yellow));
+
+    ui->actionBlanc->setIcon(makeAnIconFromJustAColour(Qt::white));
+    ui->actionViolet->setIcon(makeAnIconFromJustAColour(violet));
+    ui->actionBleu_clair->setIcon(makeAnIconFromJustAColour(Qt::cyan));
+    ui->actionGris->setIcon(makeAnIconFromJustAColour(Qt::gray));
+}
+
 void Editor::change_colour_from_action() {
     QAction* action = qobject_cast<QAction*>(sender());
-
     if (action) {
         QColor colour = QColor(action->data().toLongLong()); //F*ck just use an addwidget on the toolbar
+        on_custom_color_selected(colour);
+    }
+}
 
+void Editor::change_colour_from_custom_colour_action() { //TODO : Maker a menu where the colour can be changed by accessing the colour member
+    QAction* action = qobject_cast<QAction*>(sender());
+    if (action) {
+        QColor colour = QColor(action->data().toLongLong()); //F*ck just use an addwidget on the toolbar
         on_custom_color_selected(colour);
     }
 }
@@ -60,6 +78,39 @@ Editor::Editor(QWidget *parent)
 
     ui->toolBar_4->addWidget(slider);
 
+    QToolBar *toolbar_5 = new QToolBar();
+    toolbar_5->setWindowTitle("Couleurs perso.");
+    QToolBar *toolbar_6 = new QToolBar();
+
+    QList <QAction*> custom_colrs;
+    for (int i = 0; i < 10; i++) {
+        QAction *action = new QAction();
+        QColor *colour = new QColor();
+        action->setData(colour->rgb());
+        action->setText(QString::fromStdString(std::to_string(i)));
+        connect(action, &QAction::triggered, this, &Editor::change_colour_from_action);
+        custom_colrs.append(action);
+    }
+
+    QList <Custom_colour_action*> better_custom_colrs;
+    for (int i = 0; i < 10; i++) {
+        Custom_colour_action *action = new Custom_colour_action();
+        QColor *colour = new QColor();
+        action->setData(colour->rgb());
+        action->setText(QString::fromStdString(std::to_string(i)));
+        connect(action, &QAction::triggered, this, &Editor::change_colour_from_custom_colour_action);
+        better_custom_colrs.append(action);
+        toolbar_6->addAction(better_custom_colrs[i]);
+    }
+
+    toolbar_5->addActions(custom_colrs);
+    this->addToolBar(toolbar_5);
+
+
+    this->addToolBar(toolbar_6);
+
+    ui->menuCouleurs->addSeparator();
+    ui->menuCouleurs->addActions(custom_colrs);
 }
 
 void Editor::setSomeBackForthBtns (bool btn1, bool btn2) {
@@ -76,32 +127,9 @@ void Editor::setSomeBackForthBtns (bool btn1, bool btn2) {
 
 
 void Editor::newfile() {
+    init_set_colours();
 
-    ui->actionRouge->setIcon(makeAnIconFromJustAColour(Qt::red));
-    ui->actionVert->setIcon(makeAnIconFromJustAColour(Qt::green));
-    ui->actionBleu->setIcon(makeAnIconFromJustAColour(Qt::blue));
-    ui->actionNoir->setIcon(makeAnIconFromJustAColour(Qt::black));
-    ui->actionOrange->setIcon(makeAnIconFromJustAColour(orange));
-    ui->actionJaune->setIcon(makeAnIconFromJustAColour(Qt::yellow));
 
-    ui->actionBlanc->setIcon(makeAnIconFromJustAColour(Qt::white));
-    ui->actionViolet->setIcon(makeAnIconFromJustAColour(violet));
-    ui->actionBleu_clair->setIcon(makeAnIconFromJustAColour(Qt::cyan));
-    ui->actionGris->setIcon(makeAnIconFromJustAColour(Qt::gray));
-
-    QList <QAction*> custom_colrs;
-    for (int i = 0; i < 10; i++) {
-        QAction *action = new QAction();
-        QColor *colour = new QColor();
-        action->setData(colour->rgb());
-        action->setText(QString::fromStdString(std::to_string(i)));
-        connect(action, &QAction::triggered, this, &Editor::change_colour_from_action);
-        custom_colrs.append(action);
-    }
-
-    ui->menuCouleurs->addActions(custom_colrs);
-    QMenu *menu_change_custom_colrs = new QMenu("Changer les couleurs perso.");
-    ui->menuCouleurs->addMenu(menu_change_custom_colrs);
 
     QScrollArea *sa = new QScrollArea();
     QWidget *widget = new QWidget();

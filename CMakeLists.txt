@@ -30,6 +30,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         canvas.h canvas.cpp
         LICENSE
         README.md
+        custom_colour_action.h custom_colour_action.cpp
 
 
 
