@@ -7,6 +7,7 @@
 
 class Custom_colour_action : public QAction
 {
+    Q_OBJECT
 public:
     explicit Custom_colour_action(QObject *parent = nullptr);
     QColor colour;

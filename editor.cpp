@@ -12,6 +12,7 @@
 #include <QAction>
 #include <QPushButton>
 #include "custom_colour_action.h"
+#include "qaction_with_qaction_child.h"
 
 QTabWidget *tabwidget;
 std::string snbr;
@@ -42,6 +43,24 @@ void Editor::init_set_colours() {
     ui->actionGris->setIcon(makeAnIconFromJustAColour(Qt::gray));
 }
 
+QAction_with_QAction_child* action_of_colour_changed;
+
+void Editor::on_custom_color_selected2(const QColor &colour) {
+    action_of_colour_changed->child_action->colour = colour;
+    action_of_colour_changed->child_action->setIcon(makeAnIconFromJustAColour(colour));
+    action_of_colour_changed->setIcon(makeAnIconFromJustAColour(colour));
+    on_custom_color_selected(colour);
+}
+
+QColorDialog *custom_colour_dialog;
+
+void Editor::change_colour_from_action_w_show_dlg() {
+    action_of_colour_changed = qobject_cast<QAction_with_QAction_child*>(sender());
+    custom_colour_dialog = new QColorDialog();
+    connect(custom_colour_dialog, &QColorDialog::colorSelected, this, &Editor::on_custom_color_selected2);
+    custom_colour_dialog->show();
+}
+
 void Editor::change_colour_from_action() {
     QAction* action = qobject_cast<QAction*>(sender());
     if (action) {
@@ -51,9 +70,9 @@ void Editor::change_colour_from_action() {
 }
 
 void Editor::change_colour_from_custom_colour_action() { //TODO : Maker a menu where the colour can be changed by accessing the colour member
-    QAction* action = qobject_cast<QAction*>(sender());
+    Custom_colour_action* action = qobject_cast<Custom_colour_action*>(sender());
     if (action) {
-        QColor colour = QColor(action->data().toLongLong()); //F*ck just use an addwidget on the toolbar
+        QColor colour = action->colour;
         on_custom_color_selected(colour);
     }
 }
@@ -81,6 +100,8 @@ Editor::Editor(QWidget *parent)
     QToolBar *toolbar_5 = new QToolBar();
     toolbar_5->setWindowTitle("Couleurs perso.");
     QToolBar *toolbar_6 = new QToolBar();
+    toolbar_6->setWindowTitle("Couleurs perso.");
+
 
     QList <QAction*> custom_colrs;
     for (int i = 0; i < 10; i++) {
@@ -96,21 +117,35 @@ Editor::Editor(QWidget *parent)
     for (int i = 0; i < 10; i++) {
         Custom_colour_action *action = new Custom_colour_action();
         QColor *colour = new QColor();
+        long random_colour = rand();
+        colour->setRgb(random_colour);
         action->setData(colour->rgb());
+        action->colour = *colour;
+        action->setIcon(makeAnIconFromJustAColour(*colour));
         action->setText(QString::fromStdString(std::to_string(i)));
         connect(action, &QAction::triggered, this, &Editor::change_colour_from_custom_colour_action);
         better_custom_colrs.append(action);
         toolbar_6->addAction(better_custom_colrs[i]);
     }
+    ui->menuCouleurs->addSeparator();
+
+    QList <QAction_with_QAction_child*> change_custom_colrs;
+    for (int i = 0; i < 10; i++) {
+        QAction_with_QAction_child *action = new QAction_with_QAction_child();
+        action->setIcon(makeAnIconFromJustAColour(better_custom_colrs[i]->colour));
+        action->child_action = better_custom_colrs[i];
+        action->setText(QString::fromStdString(std::to_string(i)));
+        connect(action, &QAction::triggered, this, &Editor::change_colour_from_action_w_show_dlg);
+        change_custom_colrs.append(action);
+        ui->menuCouleurs->addAction(change_custom_colrs[i]);
+    }
 
     toolbar_5->addActions(custom_colrs);
-    this->addToolBar(toolbar_5);
-
+    //TODO : delete everything related to this :
+    //this->addToolBar(toolbar_5);
 
     this->addToolBar(toolbar_6);
 
-    ui->menuCouleurs->addSeparator();
-    ui->menuCouleurs->addActions(custom_colrs);
 }
 
 void Editor::setSomeBackForthBtns (bool btn1, bool btn2) {
