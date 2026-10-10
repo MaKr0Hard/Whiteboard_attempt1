@@ -286,7 +286,7 @@ void Editor::on_actionJaune_triggered()
 
 void Editor::on_actionViolet_triggered()
 {
-    dw->setPenColour(violet);
+    dw->setPenColour(violet); //TODO : all this redundant crap needs its own header
 }
 
 
