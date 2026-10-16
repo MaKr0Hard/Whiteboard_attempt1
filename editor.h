@@ -31,6 +31,8 @@ public:
     void change_colour_from_action_w_show_dlg();
 
 private slots:
+    void on_tab_changed(int index);
+
     void on_custom_color_selected2(const QColor &colour);
 
     void on_action_cran_de_bienvenue_triggered();

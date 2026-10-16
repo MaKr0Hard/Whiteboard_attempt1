@@ -17,7 +17,8 @@
 QTabWidget *tabwidget;
 std::string snbr;
 std::string pnbr;
-std::vector <DrawingWidget*> dws;
+std::vector <DrawingWidget*> dws; //TODO : delete
+DrawingWidget* current_dw;
 QColor orange(255, 125, 0);
 QColor violet(110, 0, 185);
 QSlider *slider;
@@ -28,6 +29,7 @@ QIcon makeAnIconFromJustAColour(QColor colour) {
     QIcon icon(pixmap);
     return icon;
 }
+
 
 void Editor::init_set_colours() {
     ui->actionRouge->setIcon(makeAnIconFromJustAColour(Qt::red));
@@ -94,7 +96,6 @@ Editor::Editor(QWidget *parent)
     connect(slider, &QSlider::sliderMoved, this, &Editor::on_slider_moved);
     connect(slider, &QSlider::sliderPressed, this, &Editor::on_slider_pressed);
     slider->setSliderPosition(6);
-
     ui->toolBar_4->addWidget(slider);
 
     QToolBar *toolbar_5 = new QToolBar();
@@ -145,7 +146,8 @@ Editor::Editor(QWidget *parent)
     //this->addToolBar(toolbar_5);
 
     this->addToolBar(toolbar_6);
-
+    connect(tabwidget, &QTabWidget::currentChanged, this, &Editor::on_tab_changed);
+    current_dw = dw; //SEGFAULT ?
 }
 
 void Editor::setSomeBackForthBtns (bool btn1, bool btn2) {
@@ -195,7 +197,6 @@ void Editor::on_action_cran_de_bienvenue_triggered()
     MainWindow *welcome = new MainWindow();
     welcome->show();
     this->close();
-
 }
 
 
@@ -215,11 +216,8 @@ void Editor::on_actionFermer_fen_tre_triggered()
 
 void Editor::on_actionFermer_onglet_triggered()
 {
-
-
     int index = tabwidget->currentIndex();
     tabwidget->removeTab(index);
-
 }
 
 
@@ -270,7 +268,7 @@ void Editor::on_actionRedraw_all_triggered()
 
 void Editor::on_actionAnnuler_triggered()
 {
-    dw->back();
+    current_dw->back();
 }
 
 
@@ -278,7 +276,7 @@ void Editor::on_actionAnnuler_triggered()
 
 void Editor::on_actionRestorer_triggered()
 {
-    dw->forward();
+    current_dw->forward();
 }
 
 
@@ -363,3 +361,11 @@ void Editor::on_actionPerso_triggered() {
     col_dialog->show();
 }
 
+void Editor::on_tab_changed(int index) {
+    std::puts("Tab changed");
+    QScrollArea* sa = qobject_cast<QScrollArea*>(tabwidget->currentWidget());
+    QWidget* widget = sa->widget();
+    QVBoxLayout* lay = qobject_cast<QVBoxLayout *>(widget->layout());
+    QLayoutItem* item = lay->itemAt(0);
+    current_dw = qobject_cast<DrawingWidget *>(item->widget());
+}

@@ -8,7 +8,7 @@
 #include <chrono>
 #include <thread>
 
-
+//TODO: When using a dw that has been back(), flush posterior strokes
 
 
 //std::vector<Stroke> DrawingWidget::last_strokes;
