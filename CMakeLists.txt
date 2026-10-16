@@ -32,6 +32,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         README.md
         custom_colour_action.h custom_colour_action.cpp
         qaction_with_qaction_child.h qaction_with_qaction_child.cpp
+        editor_stuff.h
 
 
 
